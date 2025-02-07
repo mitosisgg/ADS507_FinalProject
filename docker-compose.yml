@@ -1,0 +1,53 @@
+services:
+  api:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - LLM=${LLM}
+      - EMBEDDING_MODEL=${EMBEDDING_MODEL}
+      - DB_HOST=${DB_HOST}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
+    volumes:
+      - .:/app
+      - ~/.cache:/root/.cache
+    networks:
+      - app-network
+    ports:
+      - "8000:8000"
+    depends_on:
+      - database
+      - redis
+
+  database:
+    image: postgres:13-alpine
+    environment:
+      - POSTGRES_USER=${DB_USER:-postgres}
+      - POSTGRES_PASSWORD=${DB_PASSWORD:-postgres}
+      - POSTGRES_DB=${DB_NAME:-genaidb}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - app-network
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: redis:alpine
+    networks:
+      - app-network
+    volumes:
+      - redis_data:/data
+    ports:
+      - "6379:6379"
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  redis_data:
