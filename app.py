@@ -2,7 +2,7 @@ from fastapi import FastAPI, HTTPException, Depends
 from pydantic import BaseModel
 from typing import Optional
 from sqlalchemy.orm import Session
-from database_models import get_db, Course, Student, Instructor, Enrollment, Department, init_db
+from database_models import get_db, init_db
 from sqlalchemy import func, text, create_engine, inspect
 import openai
 import os
@@ -66,43 +66,6 @@ async def startup_event():
 @app.get("/")
 async def root():
     return {"status": "healthy", "message": "GenAI API is running"}
-
-@app.get("/table_info")
-async def get_table_info(db: Session = Depends(get_db)):
-    try:
-        # Get course statistics
-        course_count = db.query(func.count(Course.id)).scalar()
-        department_stats = db.query(
-            Department.name,
-            func.count(Course.id)
-        ).join(Course, Course.department == Department.name)\
-         .group_by(Department.name).all()
-        
-        # Get student statistics
-        student_count = db.query(func.count(Student.id)).scalar()
-        major_distribution = db.query(
-            Student.major,
-            func.count(Student.id)
-        ).group_by(Student.major).all()
-        
-        # Get enrollment statistics
-        enrollment_count = db.query(func.count(Enrollment.id)).scalar()
-        
-        return {
-            "courses": {
-                "total_courses": course_count,
-                "by_department": dict(department_stats)
-            },
-            "students": {
-                "total_students": student_count,
-                "by_major": dict(major_distribution)
-            },
-            "enrollments": {
-                "total_enrollments": enrollment_count
-            }
-        }
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
 
 @app.post("/query", response_model=ComparisonResponse)
 async def query(request: QueryRequest, db: Session = Depends(get_db)):
