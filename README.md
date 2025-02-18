@@ -77,35 +77,34 @@ Simple management of multiple services (API, databases)
 
 ### Dockerfile: Defines the application environment, including:
 
-Python 3.10 base image
-Required system dependencies
-Application code and dependencies
-Runtime configurations
+- Python 3.10 base image
+- Required system dependencies
+- Application code and dependencies
+- Runtime configurations
 
 
 ### docker-compose.yml: Orchestrates services:
 
-Application service
-PostgreSQL databases (harvard_db and schema_db)
-Network configurations
+- Application service
+- PostgreSQL databases (harvard_db and schema_db)
+- - Network configurations
 Volume mappings
 
 
 ### database_models.py: Defines SQLAlchemy models for both databases
-app.py: Main application logic including:
+### app.py: Main application logic including:
 
-API endpoints
-Database connections
-GPT-4 integration
-Query processing
+- API endpoints
+- Database connections
+- GPT-4 integration
+- Query processing
 
 
 ### utils.py: Helper functions for:
 
-Database operations
-Schema introspection
-Query generation
-
+- Database operations
+- Schema introspection
+- Query generation
 
 
 ## Building and Running
@@ -152,8 +151,8 @@ docker compose down
 
 ## Access the Application:
 
-UI Check: http://localhost:8000/
-API Documentation: http://localhost:8000/docs
+- UI Check: http://localhost:8000/
+- API Documentation: http://localhost:8000/docs
 
 ## Security Considerations
 
