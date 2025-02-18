@@ -17,35 +17,28 @@ Combining this context with the user query to help GPT-4 generate accurate SQL
 Using the generated SQL to query the harvard_db database
 
 Project Structure:
+```
 |── SQL/
-
     |── country.py
-
     |── product.py
-
     |── services1.py
-
     |── services2.py
-
     |── services4.py
-
     |── services6.py
-    
-|── Docker/
-   |── ditattributes
-|── dockerignore
-|── ditignore
+|── .gitattributes
+|── .gitignore
 |── env.example
 |── docker-compose.yml
 |── Dockerfile
 |── app.py
-|── utils.py
+|── CONTRIBUTING.md
 |── database_models.py
-|── harvard_database_model.py
-|── requirements.txt
+|── env.example
 |── LICENSE
 |── README.md
-
+|── requirements.txt
+|── utils.py
+```
 
 ## Requirements
 
