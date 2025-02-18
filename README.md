@@ -34,6 +34,7 @@ To use the Linux-GPU profile: run `docker compose --profile linux-gpu up`. Also 
 
 **Windows**
 Ollama now supports Windows. Install [Ollama](https://ollama.ai) on Windows and start it before running `docker compose up` using `ollama serve` in a separate terminal. Alternatively, Windows users can generate an OpenAI API key and configure the stack to use `gpt-3.5` or `gpt-4` in the `.env` file.
+
 # Develop
 
 > [!WARNING]
