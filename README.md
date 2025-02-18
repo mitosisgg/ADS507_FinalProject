@@ -87,7 +87,7 @@ Simple management of multiple services (API, databases)
 
 - Application service
 - PostgreSQL databases (harvard_db and schema_db)
-- - Network configurations
+- Network configurations
 Volume mappings
 
 
