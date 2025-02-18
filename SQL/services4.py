@@ -2,8 +2,8 @@ import psycopg2
 import pandas as pd
 
 database = "harvard_db"
-username = "team5admin"
-password = "p6dNsrbjDJHwcth6J7s2"
+username = "DB_USER"
+password = "DB_PASSWORD"
 hostname = "database-ads507.covo6ogaonsd.us-east-1.rds.amazonaws.com"
 
 connection = psycopg2.connect(database=database, user=username, password=password, host=hostname, port=5432)
