@@ -1,112 +1,131 @@
-# GenAI Stack
-The GenAI Stack will get you started building your own GenAI application in no time.
-The demo applications can serve as inspiration or as a starting point.
+# SQL Meta Introspection with GPT-4
+## Business Problem
+Organizations often struggle with accessing and querying complex database schemas efficiently. Data scientists and analysts spend significant time understanding database structures and writing SQL queries. This project implements a natural language to SQL solution using GPT-4 and RAG (Retrieval Augmented Generation) to allow users to query the Harvard Atlas Country Profiles database using simple English questions.
 
-# Configure
+## Application Description
+This application serves as an intelligent SQL query generator that leverages GPT-4 and database schema introspection. It enables users to interact with the Harvard Atlas database through natural language queries, which are then converted into accurate SQL statements. The system maintains two databases:
 
-Create a `.env` file from the environment template file `env.example`
+harvard_db: Contains the actual country profile data
+schema_db: Stores metadata about harvard_db's structure for context enhancement
+
+## RAG Implementation
+The RAG approach in this project works by:
+
+Storing database schema information as embeddings
+When a user asks a question, retrieving relevant schema context
+Combining this context with the user query to help GPT-4 generate accurate SQL
+Using the generated SQL to query the harvard_db database
+
+Project Structure
+Copy├── Docker/
+│   ├── ditattributes
+│   ├── dockerignore
+│   ├── ditignore
+├── env.example
+├── docker-compose.yml
+├── Dockerfile
+├── app.py
+├── utils.py
+├── database_models.py
+├── harvard_database_model.py
+├── requirements.txt
+├── LICENSE
+└── README.md
+## Configure
+Create a .env file from the environment template file env.example
 
 Available variables:
-| Variable Name          | Default value                      | Description                                                             |
-|------------------------|------------------------------------|-------------------------------------------------------------------------|  
-| LLM                    | gpt-4                             | REQUIRED - Can be any Ollama model tag, or gpt-4 or gpt-3.5 or claudev2 |
-| EMBEDDING_MODEL        | sentence_transformer               | REQUIRED - Can be sentence_transformer, openai, aws, ollama or google-genai-embedding-001|
-| AWS_ACCESS_KEY_ID      |                                    | REQUIRED - Only if LLM=claudev2 or embedding_model=aws                  |
-| AWS_SECRET_ACCESS_KEY  |                                    | REQUIRED - Only if LLM=claudev2 or embedding_model=aws                  |
-| AWS_DEFAULT_REGION     |                                    | REQUIRED - Only if LLM=claudev2 or embedding_model=aws                  |
-| OPENAI_API_KEY         |                                    | REQUIRED - Only if LLM=gpt-4 or LLM=gpt-3.5 or embedding_model=openai   |
-| GOOGLE_API_KEY         |                                    | REQUIRED - Only required when using GoogleGenai LLM or embedding model
+Variable NameDescriptionOPENAI_API_KEYREQUIRED - Your OpenAI API key for GPT-4DB_USERREQUIRED - PostgreSQL database usernameDB_PASSWORDREQUIRED - PostgreSQL database passwordDB_NAMEREQUIRED - PostgreSQL database name (harvard_db)DB_HOSTREQUIRED - PostgreSQL database host address
+
+## Docker Implementation
+### Why Docker?
+Docker provides several key advantages for this project:
+
+Consistent development environment across team members
+Easy deployment and scaling
+Isolation of dependencies and services
+Simple management of multiple services (API, databases)
+
+## Key Docker Files
+
+### Dockerfile: Defines the application environment, including:
+
+Python 3.10 base image
+Required system dependencies
+Application code and dependencies
+Runtime configurations
 
 
-## LLM Configuration
-MacOS and Linux users can use any LLM that's available via Ollama. Check the "tags" section under the model page you want to use on https://ollama.ai/library and write the tag for the value of the environment variable `LLM=` in the `.env` file.
-All platforms can use GPT-3.5-turbo and GPT-4 (bring your own API keys for OpenAI models).
+### docker-compose.yml: Orchestrates services:
 
-**MacOS**
-Install [Ollama](https://ollama.ai) on MacOS and start it before running `docker compose up` using `ollama serve` in a separate terminal.
-
-**Linux**
-No need to install Ollama manually, it will run in a container as
-part of the stack when running with the Linux profile: run `docker compose --profile linux up`.
-Make sure to set the `OLLAMA_BASE_URL=http://llm:11434` in the `.env` file when using Ollama docker container.
-
-To use the Linux-GPU profile: run `docker compose --profile linux-gpu up`. Also change `OLLAMA_BASE_URL=http://llm-gpu:11434` in the `.env` file.
-
-**Windows**
-Ollama now supports Windows. Install [Ollama](https://ollama.ai) on Windows and start it before running `docker compose up` using `ollama serve` in a separate terminal. Alternatively, Windows users can generate an OpenAI API key and configure the stack to use `gpt-3.5` or `gpt-4` in the `.env` file.
-
-# Develop
-
-> [!WARNING]
-> There is a performance issue that impacts python applications in the `4.24.x` releases of Docker Desktop. Please upgrade to the latest release before using this stack.
+Application service
+PostgreSQL databases (harvard_db and schema_db)
+Network configurations
+Volume mappings
 
 
-**Apps**
-app.py contains the application where the SQL will be executed
+### database_models.py: Defines SQLAlchemy models for both databases
+app.py: Main application logic including:
+
+API endpoints
+Database connections
+GPT-4 integration
+Query processing
 
 
-**To start everything**
-```
-docker compose up
-```
-If changes to build scripts have been made, **rebuild**.
-```
-docker compose up --build
-```
+### utils.py: Helper functions for:
 
-To enter **watch mode** (auto rebuild on file changes).
-First start everything, then in new terminal:
-```
-docker compose watch
-```
-
-**Shutdown**
-If health check fails or containers don't start up as expected, shutdown
-completely to start up again.
-```
-docker compose down
-```
-
-# Applications
-
-Here's what's in this repo:
-
-| Name | Main files | Compose name | URLs | Description |
-|---|---|---|---|---|
-| Support Bot | `bot.py` | `bot` | http://localhost:8501 | Main usecase. Fullstack Python application. |
-| Stack Overflow Loader | `loader.py` | `loader` | http://localhost:8502 | Load SO data into the database (create vector embeddings etc). Fullstack Python application. |
-| PDF Reader | `pdf_bot.py` | `pdf_bot` | http://localhost:8503 | Read local PDF and ask it questions. Fullstack Python application. |
-| Standalone Bot API | `api.py` | `api` | http://localhost:8504 | Standalone HTTP API streaming (SSE) + non-streaming endpoints Python. |
-| Standalone Bot UI | `front-end/` | `front-end` | http://localhost:8505 | Standalone client that uses the Standalone Bot API to interact with the model. JavaScript (Svelte) front-end. |
-
-The database can be explored at http://localhost:7474.
+Database operations
+Schema introspection
+Query generation
 
 
----
-## Goal Pipeline:
+
+## Building and Running
+
+Setup Environment:
+
+bashCopy# Clone repository and navigate to project directory
+git clone <repository-url>
+cd <project-directory>
+
+###  Rename Git and Docker configuration files
+mv Docker/ditattributes .gitattributes
+mv Docker/dockerignore .dockerignore
+mv Docker/ditignore .gitignore
+
+### Create .env file from template
+cp env.example .env
+### Edit .env with your configurations
+
+Build and Start Services:
+
+bashCopydocker-compose up --build
+
+## Access the Application:
 
 
-The app connects to a PostgreSQL database containing academic data (courses, students, instructors, enrollments, departments)
-It uses OpenAI's GPT models to generate SQL queries based on natural language questions
-It can operate in RAG and non-RAG modes, allowing comparison between both approaches
-The RAG implementation here is schema-based - it retrieves the database schema and uses it to inform the GPT model's responses
+UI Check: http://localhost:8000/
+API Documentation: http://localhost:8000/docs
 
-##  App 2 - Check OPEN AI GEN AI 4 is working
+## Security Considerations
 
-UI: http://localhost:8000/
- It checkes if the Open AI API is working properly
+## Environment Variables:
+
+Never commit .env files to version control
+Rotate API keys regularly
+Use minimal required permissions
+Store sensitive data in secure credential stores
 
 
-## App 3 Question / Answer with a local host
-UI: http://localhost:8000/docs
-This application uses OpenAI's GPT models to generate SQL queries based on natural language questions
-It can operate in RAG and non-RAG modes, allowing comparison between both approaches
+## Access Control:
 
-![](.github/media/app3-ui.png)
+Implement API authentication
+Use HTTPS in production
+Regular security audits
+Proper database user permissions
 
-## App 4 requirement.txt
-It has configuration versions used in the applications
 
-## App 5 Dockerfile
-The Dockerfile sets up a Python 3.10 environment in a slim container, installs necessary system and Python dependencies from requirements.txt, copies the application code, configures Python environment variables, exposes port 8000, and runs app.py when the container starts.
 
+## License
+Included in the LICENSE file
