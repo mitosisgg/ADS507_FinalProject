@@ -99,6 +99,20 @@ Volume mappings
 
 
 ### database_models.py: Defines SQLAlchemy models for both databases
+
+### SQL folder
+ - country.py
+ - product.py
+ - services1.py
+ - service2.py
+ - services4.py
+ - services6.py
+  Data will be loaded from local files:
+    ```
+    - Replace '/Users/katherinekimberling/ADS507_FinalProject/' for your local path
+    - Add .csv files
+
+
 ### app.py: Main application logic including:
 
 - API endpoints
@@ -188,6 +202,21 @@ Regular security audits
 Proper database user permissions
 
 
+## Maintenance
+Data Updates:
+The Harvard Atlas database files are updated on a quarterly basis, aligned with Harvard's data release schedule. This ensures that:
+
+- Country profile data remains current with Harvard's latest publications
+- Historical data consistency is maintained
+- Data quality aligns with Harvard's standards
+
+## Version Control
+Docker image versions are managed with a strict update policy:
+
+- New versions are released after comprehensive testing
+- Security audits must be completed before version updates
+- Each release includes detailed changelog documentation
+- Version numbers follow semantic versioning (MAJOR.MINOR.PATCH)
 
 ## License
 Included in the LICENSE file
