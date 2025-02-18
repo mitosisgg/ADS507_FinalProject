@@ -184,6 +184,41 @@ docker compose down
 - UI Check: http://localhost:8000/
 - API Documentation: http://localhost:8000/docs
 
+## API Usage
+Making Requests
+Access the API documentation at http://localhost:8000/docs. In the Swagger UI:
+
+1. Navigate to the POST section (green button)
+2. Click "Try it out"
+3. Input your query in the following format:
+```
+jsonCopy{
+  "question": "how many countries are in the data base",
+  "model": "gpt-4",
+  "use_rag": true,
+  "compare": false
+}
+```
+4. Example Response
+The API will return a structured response that can be downloaded:
+```
+jsonCopy{
+  "rag_response": {
+    "sql_query": "SELECT COUNT(DISTINCT country_id) FROM country;",
+    "database_result": "[(252,)]",
+    "explanation": "The result indicates that there are 252 distinct countries in the 'country' database. Each unique country is identified by a unique 'country_id'. The COUNT(DISTINCT country_id) function ensures that each country is only counted once, even if it appears multiple times in the database."
+  },
+  "non_rag_response": null,
+  "comparison": null
+}
+```
+The response includes:
+
+- Generated SQL query
+- Query results from database
+- Natural language explanation
+
+
 ## Security Considerations
 
 ## Environment Variables:
