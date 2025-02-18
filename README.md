@@ -118,7 +118,7 @@ Setup Environment:
 ```
 ###  Rename Git and Docker configuration files
 ```
-  mv Docker/ditattributes .gitattributes
+mv Docker/ditattributes .gitattributes
 ```
 ```
 mv Docker/dockerignore .dockerignore
