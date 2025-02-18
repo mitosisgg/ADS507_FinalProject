@@ -16,21 +16,21 @@ When a user asks a question, retrieving relevant schema context
 Combining this context with the user query to help GPT-4 generate accurate SQL
 Using the generated SQL to query the harvard_db database
 
-Project Structure
-Copy├── Docker/
-│   ├── ditattributes
-│── dockerignore
+Project Structure:
+   |── Docker/
+   |── ditattributes
+|── dockerignore
 |── ditignore
-├── env.example
-├── docker-compose.yml
-├── Dockerfile
-├── app.py
-├── utils.py
-├── database_models.py
-├── harvard_database_model.py
-├── requirements.txt
-├── LICENSE
-└── README.md
+|── env.example
+|── docker-compose.yml
+|── Dockerfile
+|── app.py
+|── utils.py
+|── database_models.py
+|── harvard_database_model.py
+|── requirements.txt
+|── LICENSE
+|── README.md
 
 
 ## Requirements
