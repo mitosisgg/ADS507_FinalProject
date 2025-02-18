@@ -19,8 +19,8 @@ Using the generated SQL to query the harvard_db database
 Project Structure
 Copy├── Docker/
 │   ├── ditattributes
-│   ├── dockerignore
-│   ├── ditignore
+│── dockerignore
+|── ditignore
 ├── env.example
 ├── docker-compose.yml
 ├── Dockerfile
@@ -31,11 +31,38 @@ Copy├── Docker/
 ├── requirements.txt
 ├── LICENSE
 └── README.md
+
+
+## Requirements
+
+Before building the Docker image, make sure you have the following installed on your local machine:
+
+- [Docker](https://www.docker.com/get-started)
+- [Docker Compose](https://docs.docker.com/compose/install/)
+
+## Setup
+
+1. **Clone the repository**:
+
+   ```bash
+   git clone https://github.com/your-username/your-repo.git
+   cd your-repo
+
+
 ## Configure
-Create a .env file from the environment template file env.example
+Available variables:
+
+Create a `.env` file from the environment template file `env.example`
 
 Available variables:
-Variable NameDescriptionOPENAI_API_KEYREQUIRED - Your OpenAI API key for GPT-4DB_USERREQUIRED - PostgreSQL database usernameDB_PASSWORDREQUIRED - PostgreSQL database passwordDB_NAMEREQUIRED - PostgreSQL database name (harvard_db)DB_HOSTREQUIRED - PostgreSQL database host address
+| Variable Name          | Description  
+|------------------------|-------------------------------------------------|
+| OPENAI_API_KEY         | REQUIRED - Your OpenAI API key for GPT-4                                 
+| DB_USER                | REQUIRED - PostgreSQL database username                                
+| DB_PASSWORD            | REQUIRED - PostgreSQL database password                               
+| DB_NAME                | REQUIRED - PostgreSQL database name (harvard_db)                           
+| DB_HOST                | REQUIRED - PostgreSQL database host address
+
 
 ## Docker Implementation
 ### Why Docker?
@@ -85,25 +112,45 @@ Query generation
 
 Setup Environment:
 
-bashCopy# Clone repository and navigate to project directory
+bash
+- Clone repository and navigate to project directory
 git clone <repository-url>
 cd <project-directory>
 
 ###  Rename Git and Docker configuration files
-mv Docker/ditattributes .gitattributes
-mv Docker/dockerignore .dockerignore
-mv Docker/ditignore .gitignore
+- mv Docker/ditattributes .gitattributes
+- mv Docker/dockerignore .dockerignore
+- mv Docker/ditignore .gitignore
 
 ### Create .env file from template
 cp env.example .env
 ### Edit .env with your configurations
 
-Build and Start Services:
+## Build and Start Services:
 
-bashCopydocker-compose up --build
+**To start everything**
+```
+docker compose up
+```
+If changes to build scripts have been made, **rebuild**.
+```
+docker compose up --build
+```
+
+To enter **watch mode** (auto rebuild on file changes).
+First start everything, then in new terminal:
+```
+docker compose watch
+```
+
+**Shutdown**
+If health check fails or containers don't start up as expected, shutdown
+completely to start up again.
+```
+docker compose down
+```
 
 ## Access the Application:
-
 
 UI Check: http://localhost:8000/
 API Documentation: http://localhost:8000/docs
@@ -112,7 +159,7 @@ API Documentation: http://localhost:8000/docs
 
 ## Environment Variables:
 
-Never commit .env files to version control
+Never commit `.env` files to version control
 Rotate API keys regularly
 Use minimal required permissions
 Store sensitive data in secure credential stores
