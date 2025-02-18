@@ -111,18 +111,27 @@ Volume mappings
 
 Setup Environment:
 
-bash
 - Clone repository and navigate to project directory
-git clone <repository-url>
-cd <project-directory>
-
+```bash
+    git clone <repository-url>
+    cd <project-directory>
+```
 ###  Rename Git and Docker configuration files
-- mv Docker/ditattributes .gitattributes
-- mv Docker/dockerignore .dockerignore
-- mv Docker/ditignore .gitignore
+```
+  mv Docker/ditattributes .gitattributes
+```
+```
+mv Docker/dockerignore .dockerignore
+```
+```
+mv Docker/ditignore .gitignore
+```
 
 ### Create .env file from template
+```
 cp env.example .env
+```
+
 ### Edit .env with your configurations
 
 ## Build and Start Services:
