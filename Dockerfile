@@ -24,8 +24,5 @@ ENV PYTHONDONTWRITEBYTECODE=1
 # Expose port
 EXPOSE 8000
 
-# Initalize database tables and seed data
-RUN python init_db.py
-
 # Command to run the application
 CMD ["python", "app.py"]
