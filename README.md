@@ -93,24 +93,22 @@ Simple management of multiple services (API, databases)
 ### docker-compose.yml: Orchestrates services:
 
 - Application service
-- PostgreSQL databases (harvard_db and schema_db)
+- PostgreSQL databases (harvard_db)
 - Network configurations
-Volume mappings
+- Volume mappings
 
 
 ### database_models.py: Defines SQLAlchemy models for both databases
 
-### SQL folder
- - country.py
- - product.py
- - services1.py
- - service2.py
- - services4.py
- - services6.py
-  Data will be loaded from local files:
-    ```
-    - Replace '/Users/katherinekimberling/ADS507_FinalProject/' for your local path
-    - Add .csv files
+### harvard_trade_data/ files loaded to DB on app start
+- data_dictionary.pdf
+- location_country.csv
+- product_hs92.csv
+- services_unilateral_country_product_year_1.dta
+- services_unilateral_country_product_year_2.dta
+- services_unilateral_country_product_year_4.dta
+- services_unilateral_country_product_year_6.dta
+
 
 
 ### app.py: Main application logic including:
