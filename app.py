@@ -2,8 +2,9 @@ from fastapi import FastAPI, HTTPException, Depends
 from pydantic import BaseModel
 from typing import Optional
 from sqlalchemy.orm import Session
-from database_models import get_db, init_db
+from database_models import get_db, init_db, seed_database, DATABASE_URL
 from sqlalchemy import func, text, create_engine, inspect
+import asyncio
 import openai
 import os
 import uvicorn
@@ -16,8 +17,8 @@ openai.api_key = os.getenv("OPENAI_API_KEY")
 DEFAULT_MODEL = os.getenv("LLM", "gpt-4")
 
 class QueryRequest(BaseModel):
-    question: str
-    model: Optional[str] = None
+    question: str = 'What is the total export value of services in the United States in 1992?'
+    model: Optional[str] = DEFAULT_MODEL
     use_rag: bool = True
     compare: bool = False
 
@@ -34,7 +35,7 @@ class ComparisonResponse(BaseModel):
 # Database introspection code
 def introspect_database():
     # Create a database connection
-    engine = create_engine(f'postgresql://{os.getenv("DB_USER")}:{os.getenv("DB_PASSWORD")}@{os.getenv("DB_HOST")}/{os.getenv("DB_NAME")}')
+    engine = create_engine(DATABASE_URL)
     
     # Create an inspector object
     inspector = inspect(engine)
@@ -62,6 +63,7 @@ async def startup_event():
     database_schema = introspect_database()
     print("Database schema:")
     print(database_schema)
+    asyncio.create_task(seed_database())
 
 @app.get("/")
 async def root():
@@ -152,6 +154,9 @@ async def query(request: QueryRequest, db: Session = Depends(get_db)):
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+
+
 
 if __name__ == "__main__":
     uvicorn.run("app:app", host="0.0.0.0", port=8000, reload=True)
