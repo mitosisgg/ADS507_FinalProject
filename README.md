@@ -3,10 +3,9 @@
 Organizations often struggle with accessing and querying complex database schemas efficiently. Data scientists and analysts spend significant time understanding database structures and writing SQL queries. This project implements a natural language to SQL solution using GPT-4 and RAG (Retrieval Augmented Generation) to allow users to query the Harvard Atlas Country Profiles database using simple English questions.
 
 ## Application Description
-This application serves as an intelligent SQL query generator that leverages GPT-4 and database schema introspection. It enables users to interact with the Harvard Atlas database through natural language queries, which are then converted into accurate SQL statements. The system maintains two databases:
+This application serves as an intelligent SQL query generator that leverages GPT-4 and database schema introspection. It enables users to interact with the Harvard Atlas database through natural language queries, which are then converted into accurate SQL statements. The system maintains one database:
 
 harvard_db: Contains the actual country profile data
-schema_db: Stores metadata about harvard_db's structure for context enhancement
 
 ## RAG Implementation
 The RAG approach in this project works by:
@@ -53,8 +52,8 @@ Before building the Docker image, make sure you have the following installed on 
 1. **Clone the repository**:
 
    ```bash
-   git clone https://github.com/your-username/your-repo.git
-   cd your-repo
+   git clone https://github.com/mitosisgg/ADS507_FinalProject.git
+   cd ADS507_FinalProject/
 
 
 ## Configure
@@ -65,11 +64,7 @@ Create a `.env` file from the environment template file `env.example`
 Available variables:
 | Variable Name          | Description  
 |------------------------|-------------------------------------------------|
-| OPENAI_API_KEY         | REQUIRED - Your OpenAI API key for GPT-4                                 
-| DB_USER                | REQUIRED - PostgreSQL database username                                
-| DB_PASSWORD            | REQUIRED - PostgreSQL database password                               
-| DB_NAME                | REQUIRED - PostgreSQL database name (harvard_db)                           
-| DB_HOST                | REQUIRED - PostgreSQL database host address
+| OPENAI_API_KEY         | REQUIRED - Your OpenAI API 
 
 
 ## Docker Implementation

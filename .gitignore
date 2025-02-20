@@ -172,3 +172,5 @@ cython_debug/
 
 
 harvard_db_erd.pgerd*
+
+.DS_Store

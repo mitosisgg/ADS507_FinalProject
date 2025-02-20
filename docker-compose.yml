@@ -5,7 +5,7 @@ services:
       dockerfile: Dockerfile
     environment:
       - OPENAI_API_KEY=${OPENAI_API_KEY}
-      - LLM=${LLM}
+      - LLM=${LLM:-GPT-4}
       - DB_HOST=database
       - DB_USER=${DB_USER:-team5admin}
       - DB_PASSWORD=${DB_PASSWORD:-mysecretpassword}
