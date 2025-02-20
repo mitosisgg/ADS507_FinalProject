@@ -18,13 +18,14 @@ Using the generated SQL to query the harvard_db database
 
 Project Structure:
 ```
-|── SQL/
-    |── country.py
-    |── product.py
-    |── services1.py
-    |── services2.py
-    |── services4.py
-    |── services6.py
+|── harvard_trade_data/
+    |── data_dictionary.pdf
+    |── location_country.csv
+    |── product_hs92.csv
+    |── services_unilateral_country_product_year_1.dta
+    |── services_unilateral_country_product_year_2.dta
+    |── services_unilateral_country_product_year_4.dta
+    |── services_unilateral_country_product_year_6.dta
 |── .gitattributes
 |── .gitignore
 |── env.example
