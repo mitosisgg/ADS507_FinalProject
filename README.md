@@ -186,8 +186,8 @@ Access the API documentation at http://localhost:8000/docs. In the Swagger UI:
 3. Input your query in the following format:
 ```
 jsonCopy{
-  "question": "**how many countries are in the data base**",
-  "model": "**gpt-4**",
+  "question": "how many countries are in the data base",
+  "model": "gpt-4",
   "use_rag": true,
   "compare": false
 }
