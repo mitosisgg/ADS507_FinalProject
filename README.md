@@ -1,19 +1,18 @@
 # SQL Meta Introspection with GPT-4
 ## Business Problem
-Organizations often struggle with accessing and querying complex database schemas efficiently. Data scientists and analysts spend significant time understanding database structures and writing SQL queries. This project implements a natural language to SQL solution using GPT-4 and RAG (Retrieval Augmented Generation) to allow users to query the Harvard Atlas Country Profiles database using simple English questions.
+Organizations often struggle with accessing and querying complex database schemas efficiently. Data scientists and analysts spend significant time understanding database structures and writing SQL queries. This project implements a natural language-to-SQL solution using GPT-4 and RAG (Retrieval Augmented Generation) to allow users to query the Harvard Growth Lab's Atlas of Economic Complexity "Country Profiles" database using simple English questions.
 
 ## Application Description
-This application serves as an intelligent SQL query generator that leverages GPT-4 and database schema introspection. It enables users to interact with the Harvard Atlas database through natural language queries, which are then converted into accurate SQL statements. The system maintains one database:
+This application serves as an intelligent SQL query generator that leverages GPT-4 and personal database schema introspection. It enables users to interact with the Harvard Atlas database through natural language queries, which are then converted into accurate SQL statements. The system maintains one database:
 
-harvard_db: Contains the actual country profile data
+harvard_db: Contains the actual country profile data, including products, imports, exports and global market shares.
 
 ## RAG Implementation
 The RAG approach in this project works by:
 
-Storing database schema information as embeddings
-When a user asks a question, retrieving relevant schema context
-Combining this context with the user query to help GPT-4 generate accurate SQL
-Using the generated SQL to query the harvard_db database
+Storing database schema information as embeddings.
+When a user asks a question using natural language, the RAG retrieves the relevant schema context.
+The RAG then combines this context with the user query to help GPT-4 generate accurate SQL, and then uses the generated SQL to query the harvard_db database
 
 Project Structure:
 ```
@@ -187,8 +186,8 @@ Access the API documentation at http://localhost:8000/docs. In the Swagger UI:
 3. Input your query in the following format:
 ```
 jsonCopy{
-  "question": "how many countries are in the data base",
-  "model": "gpt-4",
+  "question": "**how many countries are in the data base**",
+  "model": "**gpt-4**",
   "use_rag": true,
   "compare": false
 }
@@ -208,9 +207,9 @@ jsonCopy{
 ```
 The response includes:
 
-- Generated SQL query
-- Query results from database
-- Natural language explanation
+- Generated SQL query (which can be run in the user's RDBMS of choice (SQL Workbench, PostgreSQL, etc)
+- Query results from database (the actual answer to the user's natural language question)
+- Natural language explanation (what the query is designed to do, or reasons why the question returned a null result)
 
 
 ## Security Considerations
@@ -233,7 +232,7 @@ Proper database user permissions
 
 ## Maintenance
 Data Updates:
-The Harvard Atlas database files are updated on a quarterly basis, aligned with Harvard's data release schedule. This ensures that:
+The Harvard Atlas database files are updated on a quarterly basis, aligned with Harvard Growth Lab's data release schedule. This ensures that:
 
 - Country profile data remains current with Harvard's latest publications
 - Historical data consistency is maintained
@@ -249,3 +248,6 @@ Docker image versions are managed with a strict update policy:
 
 ## License
 Included in the LICENSE file
+
+## Source Data Reference
+The Growth Lab at Harvard University. (2024). International Trade Data (Services) [Data set]. Harvard Dataverse, V1. https://doi.org/10.7910/DVN/NDDMSN
