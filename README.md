@@ -53,7 +53,7 @@ Before building the Docker image, make sure you have the following installed on 
    ```bash
    git clone https://github.com/mitosisgg/ADS507_FinalProject.git
    cd ADS507_FinalProject/
-
+ ```
 
 ## Configure
 Available variables:
@@ -141,9 +141,9 @@ Setup Environment:
     cd <project-directory>
 ```
 
-### Create .env file from template env.example with the command below or just rename env.example by .env 
-### Then after insert the credentials provided by the Data Science team developers of this application
-### Edit .env with your configurations
+- Create .env file from template env.example with the command below or just rename env.example to .env 
+- Then after insert the credentials provided by the Data Science team developers of this application
+- Edit .env with your configurations
 
 ```
 cp env.example .env
