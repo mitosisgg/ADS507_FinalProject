@@ -17,7 +17,7 @@ openai.api_key = os.getenv("OPENAI_API_KEY")
 DEFAULT_MODEL = os.getenv("LLM", "gpt-4")
 
 class QueryRequest(BaseModel):
-    question: str = 'What is the total export value of services in France in 1992?'
+    question: str = 'What is the total export value converted in billions of services in France Italy and Spain in 1992 individualy?'
     model: Optional[str] = DEFAULT_MODEL
     use_rag: bool = True
     compare: bool = False
