@@ -1,15 +1,12 @@
+version: '3.8'
+
 services:
   api:
     build: 
       context: .
       dockerfile: Dockerfile
-    environment:
-      - OPENAI_API_KEY=${OPENAI_API_KEY}
-      - LLM=${LLM:-GPT-4}
-      - DB_HOST=database
-      - DB_USER=${DB_USER:-team5admin}
-      - DB_PASSWORD=${DB_PASSWORD:-mysecretpassword}
-      - DB_NAME=${DB_NAME:-harvard_db}
+    env_file:
+      - .env
     volumes:
       - .:/app
       - ~/.cache:/root/.cache
@@ -19,13 +16,16 @@ services:
       - "8000:8000"
     depends_on:
       - database
+      - redis
 
   database:
     image: postgres:13-alpine
+    env_file:
+      - .env
     environment:
-      POSTGRES_USER: team5admin
-      POSTGRES_PASSWORD: mysecretpassword
-      POSTGRES_DB: harvard_db
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
@@ -33,9 +33,19 @@ services:
     ports:
       - "5432:5432"
 
+  redis:
+    image: redis:alpine
+    networks:
+      - app-network
+    volumes:
+      - redis_data:/data
+    ports:
+      - "6379:6379"
+
 networks:
   app-network:
     driver: bridge
 
 volumes:
   postgres_data:
+  redis_data:
