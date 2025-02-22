@@ -130,23 +130,16 @@ Setup Environment:
     git clone <repository-url>
     cd <project-directory>
 ```
-###  Rename Git and Docker configuration files
-```
-mv Docker/ditattributes .gitattributes
-```
-```
-mv Docker/dockerignore .dockerignore
-```
-```
-mv Docker/ditignore .gitignore
-```
 
-### Create .env file from template
+### Create .env file from template env.example with the command below or just rename env.example by .env 
+### Then after insert the credentials provided by the Data Science team developers of this application
+### Edit .env with your configurations
+
 ```
 cp env.example .env
 ```
 
-### Edit .env with your configurations
+
 
 ## Build and Start Services:
 
