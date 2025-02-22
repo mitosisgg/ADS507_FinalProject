@@ -53,7 +53,7 @@ Before building the Docker image, make sure you have the following installed on 
    ```bash
    git clone https://github.com/mitosisgg/ADS507_FinalProject.git
    cd ADS507_FinalProject/
- ```
+
 
 ## Configure
 Available variables:
