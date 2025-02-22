@@ -1,4 +1,4 @@
-version: '3.8'
+
 
 services:
   api:
@@ -7,6 +7,8 @@ services:
       dockerfile: Dockerfile
     env_file:
       - .env
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}  # Reference the API key from the .env file
     volumes:
       - .:/app
       - ~/.cache:/root/.cache
@@ -23,9 +25,9 @@ services:
     env_file:
       - .env
     environment:
-      - POSTGRES_USER=${DB_USER}
-      - POSTGRES_PASSWORD=${DB_PASSWORD}
-      - POSTGRES_DB=${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
