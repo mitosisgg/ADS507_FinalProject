@@ -2,6 +2,9 @@ FROM python:3.10-slim
 
 WORKDIR /app
 
+#join repository github to repo
+LABEL org.opencontainers.image.source https://github.com/mmoramora/ads507_finalproject-api
+
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
     build-essential \
