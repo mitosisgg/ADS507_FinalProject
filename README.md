@@ -41,7 +41,7 @@ Project Structure:
 
 ## Requirements
 
-Before building the Docker image, make sure you have the following installed on your local machine:
+Before building the Docker image, make sure you have the following installed on your local machine and link with your repo project:
 
 - [Docker](https://www.docker.com/get-started)
 - [Docker Compose](https://docs.docker.com/compose/install/)
@@ -98,6 +98,12 @@ Simple management of multiple services (API, databases)
 
 
 ### database_models.py: Defines SQLAlchemy models for both databases
+
+- Reads and processes CSV and DTA files.
+- Splits the services dataset into small chunks.
+- Inserts each chunk into the database one by one.
+- Pauses for 1 second between each insertion (await asyncio.sleep(1)) to prevent overwhelming the database.
+- Continues until all data is inserted.
 
 ### harvard_trade_data/ files loaded to DB on app start
 - data_dictionary.pdf

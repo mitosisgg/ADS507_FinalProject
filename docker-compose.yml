@@ -1,8 +1,6 @@
-
-
 services:
   api:
-    build: 
+    build:
       context: .
       dockerfile: Dockerfile
     env_file:
@@ -18,7 +16,6 @@ services:
       - "8000:8000"
     depends_on:
       - database
-      - redis
 
   database:
     image: postgres:13-alpine
@@ -35,19 +32,9 @@ services:
     ports:
       - "5432:5432"
 
-  redis:
-    image: redis:alpine
-    networks:
-      - app-network
-    volumes:
-      - redis_data:/data
-    ports:
-      - "6379:6379"
-
 networks:
   app-network:
     driver: bridge
 
 volumes:
   postgres_data:
-  redis_data:
