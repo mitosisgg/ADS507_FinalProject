@@ -64,6 +64,10 @@ Available variables:
 | Variable Name          | Description  
 |------------------------|-------------------------------------------------|
 | OPENAI_API_KEY         | REQUIRED - Your OpenAI API 
+| DB_USER                | REQUIRED - Your DB USER 
+| DB_PASSWORD            | REQUIRED - Your DB PASSWORD
+| DB_NAME                | REQUIRED - Your DB NAME
+| DB_HOST                | REQUIRED - Your DB HOST
 
 
 ## Docker Implementation
@@ -138,8 +142,6 @@ Setup Environment:
 ```
 cp env.example .env
 ```
-
-
 
 ## Build and Start Services:
 
